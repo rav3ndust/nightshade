@@ -161,7 +161,7 @@ def makeConfigs():
 	# run the functions for the configs
 	copyConkyConfig()
 	copyVimrc()
-	CopyDunstrc()
+	copyDunstrc()
 	copyXinitrc()
 	slp()
 	print(allCopied)
