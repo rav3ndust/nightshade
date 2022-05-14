@@ -123,7 +123,7 @@ def getYay():
 	mkpkg = "cd yay && makepkg -si" 
 	print("Downloading and building Yay AUR helper...")
 	shell.system(f'git clone {YAY_LINK}')
-	shell.system('{mkpkg} | {EXT_ERR}')
+	shell.system(f'{mkpkg} | {EXT_ERR}')
 	print("Yay AUR helper installed.")
 	slp()
 def makeConfigs():
