@@ -113,7 +113,7 @@ def slp():
 	# halts the sys 1 sec 
 	sleep = "sleep 1"
 	shell.system(sleep)
-def ERR_EXT:
+def ERR_EXT():
 	# exits the program on error 
 	print(ERR_MSG)
 	slp()
