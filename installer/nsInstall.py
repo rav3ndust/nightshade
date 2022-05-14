@@ -123,7 +123,7 @@ def getYay():
 	mkpkg = "cd yay && makepkg -si" 
 	print("Downloading and building Yay AUR helper...")
 	shell.system(f'git clone {YAY_LINK}')
-	shell.system(f'{mkpkg} | {EXT_ERR}')
+	shell.system(f'{mkpkg} || {EXT_ERR}')
 	print("Yay AUR helper installed.")
 	slp()
 def makeConfigs():
@@ -171,7 +171,7 @@ def buildAshWM():
 	mkpkg = "cd ashWM && sudo make install"
 	print("Collecting and building ashWM...") 
 	shell.system(f'git clone {ASH_WM}')
-	shell.system('{mkpkg} | {EXT_ERR}')
+	shell.system('{mkpkg} || {EXT_ERR}')
 	print("ashWM compiled and installed.")
 	slp()	
 def buildDwmBlocks():
@@ -179,7 +179,7 @@ def buildDwmBlocks():
 	mkpkg = "cd dwmblocks && sudo make install"
 	print("Collecting and building dwmblocks...")
 	shell.system(f'git clone {DWMBLOCKS}')
-	shell.system(f'{mkpkg} | {ERR_EXT}')
+	shell.system(f'{mkpkg} || {ERR_EXT}')
 	print("dwmblocks built.")
 	slp()
 def buildSt():
@@ -187,7 +187,7 @@ def buildSt():
 	mkpkg = "cd st && sudo make install" 
 	print("Collecting and building st...")
 	shell.system(f'git clone {SIMPTERM}')
-	shell.system(f'{mkpkg} | {ERR_EXT}')
+	shell.system(f'{mkpkg} || {ERR_EXT}')
 	print("st built.")
 	slp()
 def buildNightsurf():
@@ -195,13 +195,13 @@ def buildNightsurf():
 	mkpkg = "cd nightsurf && sudo make install" 
 	print("Collecting and building nightsurf...")
 	shell.system(f'git clone {NIGHTSURF}')
-	shell.system(f'{mkpkg} | {ERR_EXT}')
+	shell.system(f'{mkpkg} || {ERR_EXT}')
 	print("Nightsurf built.")
 	slp()
 # program begins here
 title = "Nightshade Meta-Distribution Installer" 
 print(title)
-
+# come back and write the rest of the script later.
 ''' TODO
 
 	- implement functions for: 
