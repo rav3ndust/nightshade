@@ -5,14 +5,16 @@
 # installs our "meta-distro" on any Arch-based distribution.
 #
 set -euo pipefail
-DESKTOPFILE="$HOME/nightshade/configs/ashWM.desktop"
-DESKTOPFILE_2="/usr/share/xsessions/ashWM.desktop"
+UPDATE="sudo pacman -Syu" 
+DESKTOPFILE="$HOME/nightshade/configs/dwm.desktop"
+DESKTOPFILE_2="/usr/share/xsessions/dwm.desktop"
 ASHWM="https://github.com/rav3ndust/ashWM"
 ASHWM_XSESSION="/usr/share/xsessions/ashWM.desktop"
 AUTOSTART="$HOME/ashWM/scripts/autostart.sh"
 DWMBLOCKS="https://github.com/rav3ndust/dwmblocks"
 YAY_LINK="https://aur.archlinux.org/yay"
 NIGHTSURF="https://github.com/rav3ndust/nightsurf"
+NIGHTSURF_SCRIPT="$HOME/ashWM/scripts/nightsurf.sh"
 CONKYCONF_COPY="$HOME/nightshade/configs/conky.conf"
 CONKYCONF_2="/etc/conky/conky.conf"
 VIMRC_COPY="$HOME/nightshade/configs/vimrc"
@@ -28,9 +30,14 @@ LAUNCH_SSC="$HOME/dwmblocks/launchssc.sh"
 NOTIF_HIST="$HOME/dwmblocks/notif-history.sh"
 VOL="$HOME/dwmblocks/volume.sh"
 # system stuff
-ERR_MSG="Sorry, something went wrong. Please check logs."
-MKPKG=$(make && sudo make install) 
+ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
+MKPKG="make && sudo make install" 
 PKGS="git arandr nitrogen feh rofi alacritty cmus vim micro picom mpv pulsemixer sl neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xautolock dunst"
+refresh_repos() {
+	echo "Updating repositories..."
+	$UPDATE
+	echo "Repositories updated."
+}
 get_Yay() {
 	echo "Building yay AUR helper..."
 	git clone $YAY_LINK
@@ -91,7 +98,7 @@ install_copyStuff() {
 	echo "Desktop file created. You can now login to ashWM in your login manager."
 }
 mkexec() {
-	# make scripts executable.
+	# make scripts executable
 	echo "Making scripts executable..."
 	chmod +x $SSC || $ERR_MSG
 	chmod +x $BATT || $ERR_MSG
@@ -100,6 +107,8 @@ mkexec() {
 	chmod +x $NOTIF_HIST || $ERR_MSG
 	chmod +x $VOL || $ERR_MSG
 	chmod +x $AUTOSTART || $ERR_MSG
+	chmod +x $NIGHTSURF_SCRIPT || $ERR_MSG
+	sudo cp $NIGHTSURF_SCRIPT /usr/bin/nightsurf
 	echo "Script permissions applied."
 }
 further_opts() {
@@ -181,6 +190,7 @@ further_opts() {
 # script runs here
 echo "Nightshade Meta-Distribution Installer"
 cd $HOME
+refresh_repos
 echo "Downloading needed packages..."
 sudo pacman -S $PKGS
 get_Yay
