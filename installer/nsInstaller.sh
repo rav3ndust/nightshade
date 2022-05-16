@@ -78,6 +78,8 @@ install_System_Stuff() {
 	yay -S polkit-dumb-agent
 	# 'libxft-bgra' fixes a color emoji rendering issue. 
 	yay -S libxft-bgra
+	# 'ttf-envy-code-r' is a nice font for us to use.
+	yay -S ttf-envy-code-r && fc-cache
 }
 install_copyStuff() {
 	echo "Copying configs and scripts..."
