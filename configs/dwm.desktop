@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=ashWM
+Comment=elegant and minimal tiling window manager
+Exec=~/ashWM/scripts/autostart.sh
+Icon=dwm
+Type=XSession
+Name[en_US]=dwm.desktop
