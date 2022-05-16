@@ -1,0 +1,6 @@
+[Desktop Entry]
+Encoding=UTF-8
+Name=ashWM
+Comment=elegant and minimal tiling window manager
+Exec=$HOME/ashWM/scripts/autostart.sh
+Type=XSession
