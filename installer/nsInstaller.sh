@@ -5,6 +5,8 @@
 # installs our "meta-distro" on any Arch-based distribution.
 #
 set -euo pipefail
+DESKTOPFILE="$HOME/nightshade/configs/ashWM.desktop"
+DESKTOPFILE_2="/usr/share/xsessions/ashWM.desktop"
 ASHWM="https://github.com/rav3ndust/ashWM"
 ASHWM_XSESSION="/usr/share/xsessions/ashWM.desktop"
 AUTOSTART="$HOME/ashWM/scripts/autostart.sh"
@@ -29,7 +31,6 @@ VOL="$HOME/dwmblocks/volume.sh"
 ERR_MSG="Sorry, something went wrong. Please check logs."
 MKPKG=$(make && sudo make install) 
 PKGS="git arandr nitrogen feh rofi alacritty cmus vim micro picom mpv pulsemixer sl neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xautolock dunst"
-# functions
 get_Yay() {
 	echo "Building yay AUR helper..."
 	git clone $YAY_LINK
@@ -68,13 +69,26 @@ install_System_Stuff() {
 	yay -S st
 	# 'polkit-dumb-agent lets us grant elevated user privs
 	yay -S polkit-dumb-agent
+	# 'libxft-bgra' fixes a color emoji rendering issue. 
+	yay -S libxft-bgra
 }
-
 install_copyStuff() {
+	echo "Copying configs and scripts..."
+	echo "Copying ssc..."
 	sudo cp $HOME/ashWM/scripts/ssc.sh /usr/bin/ssc
+	echo "Copied ssc. Copying Conky.conf..."
 	sudo cp $CONKYCONF_COPY $CONKYCONF_2
+	echo "Conky.conf copied. Copying vimrc..."
 	sudo touch $VIMRC_2 && sudo cp $VIMRC_COPY $VIMRC_2
-	sudo 
+	echo "vimrc copied. Copying dunstrc..."
+	sudo mkdir -p $HOME/.config/dunst && sudo mkdir -p $HOME/etc/dunst
+	sudo touch $DUNSTRC_2 && sudo touch $DUNSTRC_3
+	sudo cp $DUNSTRC_COPY $DUNSTRC_2
+	sudo cp $DUNSTRC_COPY $DUNSTRC_3
+	echo "dunstrc copied. Copying .desktop files for autostart..."
+	sudo touch $DESKTOPFILE_2
+	sudo cp $DESKTOPFILE $DESKTOPFILE_2
+	echo "Desktop file created. You can now login to ashWM in your login manager."
 }
 mkexec() {
 	# make scripts executable.
@@ -163,16 +177,21 @@ further_opts() {
 		echo "No valid option selected. Exiting."
 		exit
 	fi
-
-
 }
 # script runs here
 echo "Nightshade Meta-Distribution Installer"
 cd $HOME
-sudo pacman -S git
-#TODO
-# Finish the copyStuff() function - make sure all configs are where they belong.
-# Make sure we have all the packages we need in the installer.
-# Finish the logic for anymore functions we need.
-# Finish writing the script itself.
-#
+echo "Downloading needed packages..."
+sudo pacman -S $PKGS
+get_Yay
+build_ashWM
+build_dwmblocks
+build_nightsurf
+install_System_Stuff
+install_copyStuff
+mkexec
+further_opts
+echo "All tasks completed." 
+sleep 1
+echo "You are now free to log into ashWM through your session manager. Enjoy!"
+exit
