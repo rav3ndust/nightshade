@@ -74,18 +74,23 @@ install_System_Stuff() {
 	yay -S escrotum
 	# 'st' is the suckless terminal.
 	yay -S st
+	# 'tabbed' is for tabbed browsing sessions in nightsurf
+	yay -S tabbed
 	# 'polkit-dumb-agent lets us grant elevated user privs
 	yay -S polkit-dumb-agent
 	# 'libxft-bgra' fixes a color emoji rendering issue. 
 	yay -S libxft-bgra
 	# 'ttf-envy-code-r' is a nice font for us to use.
 	yay -S ttf-envy-code-r && fc-cache
+	# We also want to grab Font Awesome for the images in status bar. 
+	sudo pacman -S ttf-font-awesome && fc-cache
 }
 install_copyStuff() {
 	echo "Copying configs and scripts..."
 	echo "Copying ssc..."
 	sudo cp $HOME/ashWM/scripts/ssc.sh /usr/bin/ssc
 	echo "Copied ssc. Copying Conky.conf..."
+	sudo mkdir /etc/conky && sudo touch /etc/conky/conky.conf
 	sudo cp $CONKYCONF_COPY $CONKYCONF_2
 	echo "Conky.conf copied. Copying vimrc..."
 	sudo touch $VIMRC_2 && sudo cp $VIMRC_COPY $VIMRC_2
