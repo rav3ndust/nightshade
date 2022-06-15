@@ -31,7 +31,7 @@ NOTIF_HIST="$HOME/dwmblocks/notif-history.sh"
 VOL="$HOME/dwmblocks/volume.sh"
 # system stuff
 ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
-MKPKG="make && sudo make install" 
+MKPKG="sudo make install" 
 PKGS="git arandr nitrogen feh rofi pamixer alacritty cmus vim micro picom mpv pulsemixer sl neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xautolock dunst"
 refresh_repos() {
 	echo "Updating repositories..."
@@ -49,6 +49,7 @@ build_ashWM() {
 	echo "Building ashWM..."
 	git clone $ASHWM
 	cd ashWM
+	make || $ERR_MSG
 	$MKPKG || $ERR_MSG
 	echo "ashWM built."
 	cd $HOME
@@ -57,6 +58,7 @@ build_dwmblocks() {
 	echo "Building dwmblocks..."
 	git clone $DWMBLOCKS
 	cd dwmblocks
+	make || $ERR_MSG
 	$MKPKG || $ERR_MSG
 	echo "dwmblocks built."
 	cd $HOME
@@ -65,6 +67,7 @@ build_nightsurf() {
 	echo "Building nightsurf browser..."
 	git clone $NIGHTSURF
 	cd nightsurf
+	make || $ERR_MSG
 	$MKPKG || $ERR_MSG
 	echo "nightsurf built."
 	cd $HOME
