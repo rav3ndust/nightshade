@@ -32,7 +32,7 @@ VOL="$HOME/dwmblocks/volume.sh"
 # system stuff
 ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
 MKPKG="sudo make install" 
-PKGS="git arandr nitrogen feh rofi pamixer alacritty cmus vim micro picom mpv pulsemixer sl neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xautolock dunst"
+PKGS="git arandr nitrogen feh rofi pamixer alacritty cmus vim micro picom mpv pulsemixer neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xautolock dunst"
 refresh_repos() {
 	echo "Updating repositories..."
 	$UPDATE
