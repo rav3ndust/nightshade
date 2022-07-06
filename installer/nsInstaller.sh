@@ -11,7 +11,7 @@ DESKTOPFILE_2="/usr/share/xsessions/dwm.desktop"
 ASHWM="https://github.com/rav3ndust/ashWM"
 ASHWM_XSESSION="/usr/share/xsessions/ashWM.desktop"
 AUTOSTART="$HOME/ashWM/scripts/autostart.sh"
-DWMBLOCKS="https://github.com/rav3ndust/dwmblocks"
+ASHBLOCKS="https://github.com/rav3ndust/ashbocks"
 YAY_LINK="https://aur.archlinux.org/yay"
 NIGHTSURF="https://github.com/rav3ndust/nightsurf"
 NIGHTSURF_SCRIPT="$HOME/ashWM/scripts/nightsurf.sh"
@@ -24,11 +24,11 @@ DUNSTRC_2="$HOME/.config/dunst/dunstrc"
 DUNSTRC_3="/etc/dunst/dunstrc"
 # script locations
 SSC="$HOME/ashWM/scripts/ssc.sh"
-BATT="$HOME/dwmblocks/battery.sh"
-NETW="$HOME/dwmblocks/internet.sh"
-LAUNCH_SSC="$HOME/dwmblocks/launchssc.sh"
-NOTIF_HIST="$HOME/dwmblocks/notif-history.sh"
-VOL="$HOME/dwmblocks/volume.sh"
+BATT="$HOME/ashblocks/battery.sh"
+NETW="$HOME/ashblocks/internet.sh"
+LAUNCH_SSC="$HOME/ashblocks/launchssc.sh"
+NOTIF_HIST="$HOME/ashblocks/notif-history.sh"
+VOL="$HOME/ashblocks/volume.sh"
 # system stuff
 ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
 MKPKG="sudo make install" 
@@ -54,13 +54,13 @@ build_ashWM() {
 	echo "ashWM built."
 	cd $HOME
 }
-build_dwmblocks() {
-	echo "Building dwmblocks..."
-	git clone $DWMBLOCKS
-	cd dwmblocks
+build_ashblocks() {
+	echo "Building ashblocks..."
+	git clone $ASHBLOCKS
+	cd ashblocks
 	make || $ERR_MSG
 	$MKPKG || $ERR_MSG
-	echo "dwmblocks built."
+	echo "ashblocks built."
 	cd $HOME
 }
 build_nightsurf() {
@@ -205,7 +205,7 @@ echo "Downloading needed packages..."
 sudo pacman -S $PKGS
 get_Yay
 build_ashWM
-build_dwmblocks
+build_ashblocks
 build_nightsurf
 install_System_Stuff
 install_copyStuff
