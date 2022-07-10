@@ -33,3 +33,7 @@ This small little "meta-distro" stands on top of the shoulders of giants and a s
 ### [Luke Smith](https://github.com/LukeSmithxyz)
 
 > ashWM is a fork of Luke's build of dwm with my own scripts, keybinds, and aesthetics on top.
+
+### [Linux Mint](https://linuxmint.com)
+
+> I am also working on including some custom configurations for my favorite desktop environment, [Cinnamon](https://cinnamon-spices.linuxmint.com/), made by the good folks at the Linux Mint Team. With this inclusion, you will be able to select between our **ashWM** window manager and custom **Cinnamon** desktop easily in your SDDM session manager. 
