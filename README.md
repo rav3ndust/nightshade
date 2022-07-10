@@ -40,4 +40,4 @@ This small little "meta-distro" stands on top of the shoulders of giants and a s
 
 ### [Mario-paul](https://github.com/Mario-paul)
 
-We use the [Moonstone](https://cinnamon-spices.linuxmint.com/themes/view/Moonstone) theme in our Cinnamon setup for Nightshade. 
+> We use the [Moonstone](https://cinnamon-spices.linuxmint.com/themes/view/Moonstone) theme in our Cinnamon setup for Nightshade. 
