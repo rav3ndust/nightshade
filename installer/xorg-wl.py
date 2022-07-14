@@ -69,4 +69,5 @@ else:
 TODO: 
 	- Testing.
 	- Need to run on a new installation - preferably in a VM.
+	- run some X11 applications under Wayland for testing.
 '''
