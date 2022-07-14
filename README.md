@@ -11,10 +11,13 @@ Here's a quick rundown of how to quickly get **ashWM** ([my dwm fork](https://gi
 2. Ensure you have **git** and **python** installed: `sudo pacman -S git python`
 3. Clone this repository: `git clone https://github.com/rav3ndust/nightshade`
 4. Switch to your new *nightshade* directory: `cd nightshade` 
-5. Run the installer: `python nsInstaller.py`
+5. Make the installation script executable: `chmod +x nsInstaller.sh`
+6. Run the installer: `./nsInstaller.sh` 
 
 When finished, you can reboot your machine, and you will be presented with an SDDM session where you can login. 
 
+
+###### *Note that we are also working on finishing up a Python installer - this will be updated in the repo when it is finished.* 
 **More documentation to come!**
 
 ## Credits
