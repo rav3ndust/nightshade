@@ -74,7 +74,7 @@ build_nightsurf() {
 }
 install_System_Stuff() {
 	# 'escrotum' is the base of our screenshot tool, ssc.
-	yay -S escrotum
+	yay -S escrotum-git
 	# 'st' is the suckless terminal.
 	yay -S st
 	# 'tabbed' is for tabbed browsing sessions in nightsurf
