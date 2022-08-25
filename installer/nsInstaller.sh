@@ -32,7 +32,7 @@ VOL="$HOME/ashblocks/volume.sh"
 # system stuff
 ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
 MKPKG="sudo make install" 
-PKGS="git arandr nitrogen feh rofi pamixer alacritty cmus vim tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
+PKGS="git arandr nitrogen feh rofi pamixer alacritty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
 refresh_repos() {
 	echo "Updating repositories..."
 	$UPDATE
@@ -73,14 +73,10 @@ build_nightsurf() {
 	cd $HOME
 }
 install_System_Stuff() {
-	# 'escrotum' is the base of our screenshot tool, ssc.
-	yay -S escrotum-git
 	# 'st' is the suckless terminal.
 	yay -S st
 	# 'tabbed' is for tabbed browsing sessions in nightsurf
-	yay -S tabbed
-	# 'polkit-dumb-agent lets us grant elevated user privs
-	yay -S polkit-dumb-agent
+	yay -S tabbed-git
 	# 'libxft-bgra' fixes a color emoji rendering issue. 
 	yay -S libxft-bgra
 	# 'ttf-envy-code-r' is a nice font for us to use.
@@ -121,6 +117,7 @@ mkexec() {
 	chmod +x $AUTOSTART || $ERR_MSG
 	chmod +x $NIGHTSURF_SCRIPT || $ERR_MSG
 	sudo cp $NIGHTSURF_SCRIPT /usr/bin/nightsurf
+	sudo cp $SSC /usr/bin/ssc
 	echo "Script permissions applied."
 }
 further_opts() {
