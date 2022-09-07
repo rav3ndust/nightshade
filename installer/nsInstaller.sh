@@ -152,7 +152,7 @@ further_opts() {
 				echo "Vivaldi installed."
 			elif [[ $BROWSER == 3 ]]; then
 				echo "Installing Chrome..."
-				yay -S google-chrome-stable || $ERR_MSG
+				yay -S google-chrome || $ERR_MSG
 				echo "Chrome installed."
 			elif [[ $BROWSER == 4 ]]; then
 				echo "Installing Librewolf..."
