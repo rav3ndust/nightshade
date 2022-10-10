@@ -77,9 +77,6 @@ install_System_Stuff() {
 	yay -S st
 	# 'tabbed' is for tabbed browsing sessions in nightsurf
 	yay -S tabbed-git
-	# 'libxft-bgra' fixes a color emoji rendering issue. 
-	# The non-git package has been orphaned.
-	yay -S libxft-bgra-git
 	# 'ttf-envy-code-r' is a nice font for us to use.
 	yay -S ttf-envy-code-r && fc-cache
 	# We also want to grab Font Awesome for the images in status bar. 
