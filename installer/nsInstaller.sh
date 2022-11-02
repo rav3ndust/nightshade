@@ -1,11 +1,13 @@
 #!/bin/bash
 #
-# nightshade installer. 
+# nightshade installer.
 #	- by rav3ndust
 # installs our "meta-distro" on any Arch-based distribution.
-#
+########################################################
+# - - - Variables - - -
+########################################################
 set -euo pipefail
-UPDATE="sudo pacman -Syu" 
+UPDATE="sudo pacman -Sy"
 DESKTOPFILE="$HOME/nightshade/configs/dwm.desktop"
 DESKTOPFILE_2="/usr/share/xsessions/dwm.desktop"
 ASHWM="https://github.com/rav3ndust/ashWM"
@@ -31,21 +33,24 @@ NOTIF_HIST="$HOME/ashblocks/notif-history.sh"
 VOL="$HOME/ashblocks/volume.sh"
 # system stuff
 ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
-MKPKG="sudo make install" 
-PKGS="git arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
-refresh_repos() {
+MKPKG="sudo make install"
+PKGS="git arandr nitrogen feh rofi torsocks pamixer kate opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
+########################################################
+# - - - Functions - - -
+########################################################
+function refresh_repos() {
 	echo "Updating repositories..."
 	$UPDATE
 	echo "Repositories updated."
 }
-get_Yay() {
+function get_Yay() {
 	echo "Building yay AUR helper..."
 	git clone $YAY_LINK
 	cd yay
 	makepkg -si || $ERR_MSG
 	cd $HOME
 }
-build_ashWM() {
+function build_ashWM() {
 	echo "Building ashWM..."
 	git clone $ASHWM
 	cd ashWM
@@ -54,7 +59,7 @@ build_ashWM() {
 	echo "ashWM built."
 	cd $HOME
 }
-build_ashblocks() {
+function build_ashblocks() {
 	echo "Building ashblocks..."
 	git clone $ASHBLOCKS
 	cd ashblocks
@@ -63,7 +68,7 @@ build_ashblocks() {
 	echo "ashblocks built."
 	cd $HOME
 }
-build_nightsurf() {
+function build_nightsurf() {
 	echo "Building nightsurf browser..."
 	git clone $NIGHTSURF
 	cd nightsurf
@@ -72,19 +77,22 @@ build_nightsurf() {
 	echo "nightsurf built."
 	cd $HOME
 }
-install_System_Stuff() {
+function install_System_Stuff() {
 	# 'st' is the suckless terminal.
 	yay -S st
 	# 'tabbed' is for tabbed browsing sessions in nightsurf
 	yay -S tabbed-git
 	# 'ttf-envy-code-r' is a nice font for us to use.
 	yay -S ttf-envy-code-r && fc-cache
-	# We also want to grab Font Awesome for the images in status bar. 
+	# We also want to grab Font Awesome for the images in status bar.
 	sudo pacman -S ttf-font-awesome && fc-cache
-	# We want to include glib for glib.h 
+	# We want to include glib for glib.h
 	yay -S glib
+	# ProtonVPN for a good and private VPN with a free option. 
+	# At least until 'nightshadeVPN' becomes a thing. ;-) 
+	yay -S protonvpn-gui
 }
-install_copyStuff() {
+function install_copyStuff() {
 	echo "Copying configs and scripts..."
 	echo "Copying ssc..."
 	sudo cp $HOME/ashWM/scripts/ssc.sh /usr/bin/ssc
@@ -103,7 +111,7 @@ install_copyStuff() {
 	sudo cp $DESKTOPFILE $DESKTOPFILE_2
 	echo "Desktop file created. You can now login to ashWM in your login manager."
 }
-mkexec() {
+function mkexec() {
 	# make scripts executable
 	echo "Making scripts executable..."
 	chmod +x $SSC || $ERR_MSG
@@ -118,17 +126,27 @@ mkexec() {
 	sudo cp $SSC /usr/bin/ssc
 	echo "Script permissions applied."
 }
-further_opts() {
+function configure_doas() {
+	# configures doas for the user.
+	doas_conf="/etc/doas.conf"
+	configuration="permit persist :wheel"
+	echo "Creating doas.conf in $doas_conf..."
+	sudo touch $doas_conf
+	sudo echo $configuration >> $doas_conf
+	echo "doas.conf created and configured."
+	sleep 1
+}
+function further_opts() {
 	o="1 - Browsers | 2 - Programming Tools"
 	b="1 - Brave | 2 - Vivaldi | 3 - Chrome | 4 - Librewolf"
-	p="1 - kate | 2 - geany"
+	p="1 - notepadqq | 2 - geany"
 	echo "Would you like to install other software?"
 	echo "Type '1' for YES or '2' for NO."
 	read SFTWARE
 	if [[ $SFTWARE == 1 ]]; then
 		echo "What software category would you like?"
 		echo "Please select your option by entering the number corresponding to its entry in the menu."
-		sleep 1 
+		sleep 1
 		echo $o
 		sleep 1
 		echo "Type your choice: "
@@ -168,9 +186,9 @@ further_opts() {
 			echo "Your selection here: "
 			read PRO
 			if [[ $PRO == 1 ]]; then
-				echo "Installing Kate..."
-				sudo pacman -S kate || $ERR_MSG
-				echo "Kate installed."
+				echo "Installing Notepadqq..."
+				sudo pacman -S notepadqq || $ERR_MSG
+				echo "Notepadqq installed."
 			elif [[ $PRO == 2 ]]; then
 				echo "Installing Geany..."
 				sudo pacman -S geany || $ERR_MSG
@@ -189,12 +207,14 @@ further_opts() {
 		sleep 1
 		echo "Script exiting."
 		exit
-	else 
+	else
 		echo "No valid option selected. Exiting."
 		exit
 	fi
 }
-# script runs here
+########################################################
+# - - - Script Begins Here - - -
+########################################################
 echo "Nightshade Meta-Distribution Installer"
 cd $HOME
 refresh_repos
@@ -207,8 +227,10 @@ build_nightsurf
 install_System_Stuff
 install_copyStuff
 mkexec
+configure_doas
 further_opts
-echo "All tasks completed." 
+echo "All tasks completed."
 sleep 1
 echo "You are now free to log into ashWM through your session manager. Enjoy!"
 exit
+# TODO: Any other packages we need to include or remove?
