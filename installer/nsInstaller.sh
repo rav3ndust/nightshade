@@ -90,8 +90,7 @@ function install_System_Stuff() {
 }
 function install_copyStuff() {
 	echo "Copying configs and scripts..."
-	#echo "Copying ssc..."
-	#sudo cp $HOME/ashWM/scripts/ssc.sh /usr/bin/ssc
+	sleep 1
 	echo "Copying Conky.conf..."
 	sudo mkdir /etc/conky && sudo touch /etc/conky/conky.conf
 	sudo cp $CONKYCONF_COPY $CONKYCONF_2
