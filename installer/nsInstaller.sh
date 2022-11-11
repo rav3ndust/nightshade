@@ -86,6 +86,9 @@ function install_System_Stuff() {
 	yay -S ttf-envy-code-r && fc-cache
 	# We also want to grab Font Awesome for the images in status bar.
 	sudo pacman -S ttf-font-awesome && fc-cache
+	# we include i3lock-fancy-git for users who want it. 
+	# it will end up being the default locker. 
+	yay -S i3lock-fancy-git
 	# We want to include glib for glib.h
 	yay -S glib
 	# ProtonVPN for a good and private VPN with a free option. 
