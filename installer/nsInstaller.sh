@@ -85,7 +85,7 @@ function install_System_Stuff() {
 	# 'ttf-envy-code-r' is a nice font for us to use.
 	yay -S ttf-envy-code-r && fc-cache
 	# We also want to grab Font Awesome for the images in status bar.
-	sudo pacman -S ttf-font-awesome && fc-cache
+	sudo pacman -S ttf-font-awesome --noconfirm && fc-cache
 	# we include i3lock-fancy-git for users who want it. 
 	# it will end up being the default locker. 
 	yay -S i3lock-fancy-git
@@ -167,7 +167,7 @@ function further_opts() {
 				echo "Brave installed."
 			elif [[ $BROWSER == 2 ]]; then
 				echo "Installing Vivaldi..."
-				sudo pacman -S vivaldi-stable || $ERR_MSG
+				sudo pacman -S vivaldi --noconfirm || $ERR_MSG
 				echo "Vivaldi installed."
 			elif [[ $BROWSER == 3 ]]; then
 				echo "Installing Chrome..."
@@ -194,11 +194,11 @@ function further_opts() {
 			read PRO
 			if [[ $PRO == 1 ]]; then
 				echo "Installing Notepadqq..."
-				sudo pacman -S notepadqq || $ERR_MSG
+				sudo pacman -S notepadqq --noconfirm || $ERR_MSG
 				echo "Notepadqq installed."
 			elif [[ $PRO == 2 ]]; then
 				echo "Installing Geany..."
-				sudo pacman -S geany || $ERR_MSG
+				sudo pacman -S geany --noconfirm || $ERR_MSG
 				echo "Geany installed."
 			else
 				echo "No valid option selected. Exiting."
@@ -226,7 +226,7 @@ echo "Nightshade Meta-Distribution Installer"
 cd $HOME
 refresh_repos
 echo "Downloading needed packages..."
-sudo pacman -S $PKGS
+sudo pacman -S $PKGS --noconfirm
 get_Yay
 build_ashWM
 build_ashblocks
