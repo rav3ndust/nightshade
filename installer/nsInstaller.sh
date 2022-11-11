@@ -138,7 +138,7 @@ function configure_doas() {
 }
 function further_opts() {
 	o="1 - Browsers | 2 - Programming Tools"
-	b="1 - Brave | 2 - Vivaldi | 3 - Chrome | 4 - Librewolf"
+	b="1 - Brave | 2 - Vivaldi | 3 - Chrome | 4 - Librewolf | 5 - Firefox Developer Edition"
 	p="1 - notepadqq | 2 - geany"
 	echo "Would you like to install other software?"
 	echo "Type '1' for YES or '2' for NO."
@@ -174,6 +174,10 @@ function further_opts() {
 				echo "Installing Librewolf..."
 				yay -S librewolf || $ERR_MSG
 				echo "Librewolf installed."
+			elif [[ $BROWSER == 5 ]]; then 
+				echo "Installing Firefox Developer Edition..." 
+				sudo pacman -S firefox-developer-edition --noconfirm || $ERR_MSG
+				echo "Firefox Developer Edition installed." 
 			else
 				echo "No valid option selected. Exiting."
 				exit
