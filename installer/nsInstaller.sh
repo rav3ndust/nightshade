@@ -177,7 +177,7 @@ function further_opts() {
 			echo "Your selection here: "
 			read PRO
 			if [[ $PRO == 1 ]]; then
-				echo "Installing Kate..."
+				echo "Installing Code..."
 				sudo pacman -S code --noconfirm || $ERR_MSG
 				echo "Code installed."
 			elif [[ $PRO == 2 ]]; then
