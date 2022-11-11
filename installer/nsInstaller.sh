@@ -122,10 +122,28 @@ function mkexec() {
 	echo "Script permissions applied."
 }
 function further_opts() {
+	# BROWSER options
+	brave="Brave"
+	vivaldi="Vivaldi"
+	chrome="Google Chrome"
+	librewolf="Librewolf"
+	ff_dev="Firefox Developer Edition"
+	ms_edge="Microsoft Edge"
+	# PROGRAMMING options
+	code="Code"
+	geany="Geany"
+	# GAME options
+	s_Tux="SuperTux"
+	s_TuxKart="SuperTuxKart"
+	xonotic="Xonotic"
+	kpati="kPatience"
+	mt="Minetest"
+	mc="Minecraft"
+	# list
 	o="1 - Browsers | 2 - Programming Tools | 3 - Games"
-	b="1 - Brave | 2 - Vivaldi | 3 - Chrome | 4 - Librewolf | 5 - Firefox Developer Edition"
-	p="1 - code | 2 - geany"
-	g="1 - SuperTux | 2 - Xonotic | 3 - SuperTuxKart | 4 - kPatience | 5 - Minetest"
+	b="1 - $brave | 2 - $vivaldi | 3 - $chrome | 4 - $librewolf | 5 - $ff_dev | 6 - $ms_edge"
+	p="1 - $code | 2 - $geany"
+	g="1 - $s_Tux | 2 - $xonotic | 3 - $s_TuxKart | 4 - $kpati | 5 - $mt | 6 - $mc"
 	echo "Would you like to install other software?"
 	echo "Type '1' for YES or '2' for NO."
 	read SFTWARE
@@ -145,25 +163,35 @@ function further_opts() {
 			echo "Your selection here: "
 			read BROWSER
 			if [[ $BROWSER == 1 ]]; then
-				echo "Installing Brave..."
-				yay -S brave-bin || $ERR_MSG
-				echo "Brave installed."
+				local package="brave-bin"
+				echo "Installing $brave..."
+				yay -S $package || $ERR_MSG
+				echo "$brave installed."
 			elif [[ $BROWSER == 2 ]]; then
-				echo "Installing Vivaldi..."
-				sudo pacman -S vivaldi --noconfirm || $ERR_MSG
-				echo "Vivaldi installed."
+				local package="vivaldi"
+				echo "Installing $vivaldi..."
+				sudo pacman -S $package --noconfirm || $ERR_MSG
+				echo "$vivaldi installed."
 			elif [[ $BROWSER == 3 ]]; then
-				echo "Installing Chrome..."
-				yay -S google-chrome || $ERR_MSG
-				echo "Chrome installed."
+				local package="google-chrome"
+				echo "Installing $chrome..."
+				yay -S $package || $ERR_MSG
+				echo "$chrome installed."
 			elif [[ $BROWSER == 4 ]]; then
-				echo "Installing Librewolf..."
-				yay -S librewolf-bin || $ERR_MSG
-				echo "Librewolf installed."
+				local package="librewolf-bin"
+				echo "Installing $librewolf..."
+				yay -S $package || $ERR_MSG
+				echo "$librewolf installed."
 			elif [[ $BROWSER == 5 ]]; then
-				echo "Installing Firefox Developer Edition..."
-				sudo pacman -S firefox-developer-edition --noconfirm || $ERR_MSG
-				echo "Firefox Developer Edition installed."
+				local package="firefox-developer-edition"
+				echo "Installing $ff_dev..."
+				sudo pacman -S $package --noconfirm || $ERR_MSG
+				echo "$ff_dev installed."
+			elif [[ $BROWSER == 6 ]]; then
+				local package="microsoft-edge-stable-bin"
+				echo "Installing $ms_edge..."
+				yay -S $package || $ERR_MSG
+				echo "$ms_edge installed."
 			else
 				echo $NO_VAL
 				exit
@@ -176,13 +204,15 @@ function further_opts() {
 			echo "Your selection here: "
 			read PRO
 			if [[ $PRO == 1 ]]; then
-				echo "Installing Code..."
-				sudo pacman -S code --noconfirm || $ERR_MSG
-				echo "Code installed."
+				local package="code"
+				echo "Installing $code..."
+				sudo pacman -S $package --noconfirm || $ERR_MSG
+				echo "$code installed."
 			elif [[ $PRO == 2 ]]; then
-				echo "Installing Geany..."
-				sudo pacman -S geany --noconfirm || $ERR_MSG
-				echo "Geany installed."
+				local package="geany"
+				echo "Installing $geany..."
+				sudo pacman -S $package --noconfirm || $ERR_MSG
+				echo "$geany installed."
 			else
 				echo $NO_VAL
 				exit
@@ -195,25 +225,35 @@ function further_opts() {
 			echo "Your selection here: "
 			read GAME
 			if [[ $GAME == 1 ]]; then
-				echo "Installing SuperTux..."
-				sudo pacman -S supertux --noconfirm || $ERR_MSG
-				echo "SuperTux installed."
+				local package="supertux"
+				echo "Installing $s_Tux..."
+				sudo pacman -S $package --noconfirm || $ERR_MSG
+				echo "$s_Tux installed."
 			elif [[ $GAME == 2 ]]; then
-				echo "Installing Xonotic..."
-				sudo pacman -S xonotic --noconfirm || $ERR_MSG
-				echo "Xonotic installed."
+				local package="xonotic"
+				echo "Installing $xonotic..."
+				sudo pacman -S $package --noconfirm || $ERR_MSG
+				echo "$xonotic installed."
 			elif [[ $GAME == 3 ]]; then
-				echo "Installing SuperTuxKart..."
-				sudo pacman -S supertuxkart --noconfirm || $ERR_MSG
-				echo "SuperTuxKart installed."
+				local package="supertuxkart"
+				echo "Installing $s_TuxKart..."
+				sudo pacman -S $package --noconfirm || $ERR_MSG
+				echo "$s_TuxKart installed."
 			elif [[ $GAME == 4 ]]; then
-				echo "Installing kPatience..."
-				sudo pacman -S kpat --noconfirm || $ERR_MSG
-				echo "kPatience installed."
+				local package="kpat"
+				echo "Installing $kpati..."
+				sudo pacman -S $package --noconfirm || $ERR_MSG
+				echo "$kpati installed."
 			elif [[ $GAME == 5 ]]; then
-				echo "Installing Minetest..."
-				sudo pacman -S minetest --noconfirm || $ERR_MSG
-				echo "Installed Minetest."
+				local package="minetest"
+				echo "Installing $mt..."
+				sudo pacman -S $package --noconfirm || $ERR_MSG
+				echo "$mt installed."
+			elif [[ $GAME == 6 ]]; then
+				local package="minecraft-launcher"
+				echo "Installing $mc..."
+				yay -S $package || $ERR_MSG
+				echo "$mc installed."
 			else
 				echo $NO_VAL
 				exit
@@ -238,7 +278,7 @@ echo "Nightshade Meta-Distribution Installer"
 cd $HOME
 #refresh_repos
 echo "Downloading needed packages..."
-sudo pacman -Sy $PKGS --noconfirm 
+sudo pacman -Sy $PKGS --noconfirm
 get_Yay
 build_ashWM
 build_ashblocks
