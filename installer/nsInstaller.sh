@@ -238,7 +238,7 @@ echo "Nightshade Meta-Distribution Installer"
 cd $HOME
 #refresh_repos
 echo "Downloading needed packages..."
-sudo pacman -S $PKGS --noconfirm 
+sudo pacman -Sy $PKGS --noconfirm 
 get_Yay
 build_ashWM
 build_ashblocks
