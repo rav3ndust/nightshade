@@ -193,23 +193,23 @@ function further_opts() {
 			read GAME
 			if [[ $GAME == 1 ]]; then
 				echo "Installing SuperTux..."
-				sudo pacman -S supertux || $ERR_MSG
+				sudo pacman -S supertux --noconfirm || $ERR_MSG
 				echo "SuperTux installed."
 			elif [[ $GAME == 2]]; then
 				echo "Installing Xonotic..."
-				sudo pacman -S xonotic || $ERR_MSG 
+				sudo pacman -S xonotic --noconfirm || $ERR_MSG 
 				echo "Xonotic installed." 
 			elif [[ $GAME == 3]]; then 
 				echo "Installing SuperTuxKart..."
-				sudo pacman -S supertuxkart || $ERR_MSG
+				sudo pacman -S supertuxkart --noconfirm || $ERR_MSG
 				echo "SuperTuxKart installed." 
 			elif [[ $GAME == 4]]; then 
 				echo "Installing kPatience..."
-				sudo pacman -S kpat || $ERR_MSG
+				sudo pacman -S kpat --noconfirm || $ERR_MSG
 				echo "kPatience installed." 
 			elif [[ $GAME == 5 ]]; then 
 				echo "Installing Minetest..." 
-				sudo pacman -S minetest || $ERR_MSG
+				sudo pacman -S minetest --noconfirm || $ERR_MSG
 				echo "Installed Minetest." 
 		else
 			echo "No valid option selected."
