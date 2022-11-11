@@ -178,11 +178,11 @@ function further_opts() {
 			read PRO
 			if [[ $PRO == 1 ]]; then
 				echo "Installing Kate..."
-				sudo pacman -S kate || $ERR_MSG
+				sudo pacman -S kate --noconfirm || $ERR_MSG
 				echo "Kate installed."
 			elif [[ $PRO == 2 ]]; then
 				echo "Installing Geany..."
-				sudo pacman -S geany || $ERR_MSG
+				sudo pacman -S geany --noconfirm || $ERR_MSG
 				echo "Geany installed."
 			else
 				echo $NO_VAL
@@ -199,11 +199,11 @@ function further_opts() {
 				echo "Installing SuperTux..."
 				sudo pacman -S supertux --noconfirm || $ERR_MSG
 				echo "SuperTux installed."
-			elif [[ $GAME == 2]]; then
+			elif [[ $GAME == 2 ]]; then
 				echo "Installing Xonotic..."
 				sudo pacman -S xonotic --noconfirm || $ERR_MSG
 				echo "Xonotic installed."
-			elif [[ $GAME == 3]]; then
+			elif [[ $GAME == 3 ]]; then
 				echo "Installing SuperTuxKart..."
 				sudo pacman -S supertuxkart --noconfirm || $ERR_MSG
 				echo "SuperTuxKart installed."
