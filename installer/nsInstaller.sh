@@ -1,13 +1,11 @@
 #!/bin/bash
-#
-# nightshade installer.
+#############################
+# nightshade installer. 
 #	- by rav3ndust
 # installs our "meta-distro" on any Arch-based distribution.
-########################################################
-# - - - Variables - - -
-########################################################
+#############################
 set -euo pipefail
-UPDATE="sudo pacman -Sy"
+UPDATE="sudo pacman -Syu" 
 DESKTOPFILE="$HOME/nightshade/configs/dwm.desktop"
 DESKTOPFILE_2="/usr/share/xsessions/dwm.desktop"
 ASHWM="https://github.com/rav3ndust/ashWM"
@@ -33,11 +31,8 @@ NOTIF_HIST="$HOME/ashblocks/notif-history.sh"
 VOL="$HOME/ashblocks/volume.sh"
 # system stuff
 ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
-MKPKG="sudo make install"
-PKGS="git arandr nitrogen feh rofi torsocks pamixer kate opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish code gedit okular nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
-########################################################
-# - - - Functions - - -
-########################################################
+MKPKG="sudo make install" 
+PKGS="git arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
 function refresh_repos() {
 	echo "Updating repositories..."
 	$UPDATE
@@ -84,21 +79,15 @@ function install_System_Stuff() {
 	yay -S tabbed-git
 	# 'ttf-envy-code-r' is a nice font for us to use.
 	yay -S ttf-envy-code-r && fc-cache
-	# We also want to grab Font Awesome for the images in status bar.
-	sudo pacman -S ttf-font-awesome --noconfirm && fc-cache
-	# we include i3lock-fancy-git for users who want it. 
-	# it will end up being the default locker. 
-	yay -S i3lock-fancy-git
-	# We want to include glib for glib.h
+	# We also want to grab Font Awesome for the images in status bar. 
+	sudo pacman -S ttf-font-awesome && fc-cache
+	# We want to include glib for glib.h 
 	yay -S glib
-	# ProtonVPN for a good and private VPN with a free option. 
-	# At least until 'nightshadeVPN' becomes a thing. ;-) 
-	yay -S protonvpn-gui
 }
 function install_copyStuff() {
 	echo "Copying configs and scripts..."
 	echo "Copying ssc..."
-	#sudo cp $SSC /usr/bin/ssc
+	sudo cp $HOME/ashWM/scripts/ssc.sh /usr/bin/ssc
 	echo "Copied ssc. Copying Conky.conf..."
 	sudo mkdir /etc/conky && sudo touch /etc/conky/conky.conf
 	sudo cp $CONKYCONF_COPY $CONKYCONF_2
@@ -129,27 +118,18 @@ function mkexec() {
 	sudo cp $SSC /usr/bin/ssc
 	echo "Script permissions applied."
 }
-function configure_doas() {
-	# configures doas for the user.
-	doas_conf="/etc/doas.conf"
-	configuration="permit persist :wheel"
-	echo "Creating doas.conf in $doas_conf..."
-	sudo touch $doas_conf
-	sudo echo $configuration >> $doas_conf
-	echo "doas.conf created and configured."
-	sleep 1
-}
 function further_opts() {
-	o="1 - Browsers | 2 - Programming Tools"
+	o="1 - Browsers | 2 - Programming Tools | 3 - Games"
 	b="1 - Brave | 2 - Vivaldi | 3 - Chrome | 4 - Librewolf | 5 - Firefox Developer Edition"
-	p="1 - notepadqq | 2 - geany"
+	p="1 - kate | 2 - geany"
+	g="1 - SuperTux | 2 - Xonotic | 3 - SuperTuxKart | 4 - kPatience | 5 - Minetest"
 	echo "Would you like to install other software?"
 	echo "Type '1' for YES or '2' for NO."
 	read SFTWARE
 	if [[ $SFTWARE == 1 ]]; then
 		echo "What software category would you like?"
 		echo "Please select your option by entering the number corresponding to its entry in the menu."
-		sleep 1
+		sleep 1 
 		echo $o
 		sleep 1
 		echo "Type your choice: "
@@ -167,7 +147,7 @@ function further_opts() {
 				echo "Brave installed."
 			elif [[ $BROWSER == 2 ]]; then
 				echo "Installing Vivaldi..."
-				sudo pacman -S vivaldi --noconfirm || $ERR_MSG
+				sudo pacman -S vivaldi-stable || $ERR_MSG
 				echo "Vivaldi installed."
 			elif [[ $BROWSER == 3 ]]; then
 				echo "Installing Chrome..."
@@ -177,9 +157,9 @@ function further_opts() {
 				echo "Installing Librewolf..."
 				yay -S librewolf || $ERR_MSG
 				echo "Librewolf installed."
-			elif [[ $BROWSER == 5 ]]; then 
-				echo "Installing Firefox Developer Edition..." 
-				sudo pacman -S firefox-developer-edition --noconfirm || $ERR_MSG
+			elif [[ $BROWSER == 5 ]]; then
+				echo "Installing Firefox Developer Edition..."
+				sudo pacman -S firefox-developer-edition || $ERR_MSG
 				echo "Firefox Developer Edition installed." 
 			else
 				echo "No valid option selected. Exiting."
@@ -193,17 +173,44 @@ function further_opts() {
 			echo "Your selection here: "
 			read PRO
 			if [[ $PRO == 1 ]]; then
-				echo "Installing Notepadqq..."
-				sudo pacman -S notepadqq --noconfirm || $ERR_MSG
-				echo "Notepadqq installed."
+				echo "Installing Kate..."
+				sudo pacman -S kate || $ERR_MSG
+				echo "Kate installed."
 			elif [[ $PRO == 2 ]]; then
 				echo "Installing Geany..."
-				sudo pacman -S geany --noconfirm || $ERR_MSG
+				sudo pacman -S geany || $ERR_MSG
 				echo "Geany installed."
 			else
 				echo "No valid option selected. Exiting."
 				exit
 			fi
+		elif [[ $CATEGORY == 3 ]]; then 
+			# list the game options
+			echo "GAMES OPTIONS: "
+			echo $g
+			sleep 1
+			echo "Your selection here: "
+			read GAME
+			if [[ $GAME == 1 ]]; then
+				echo "Installing SuperTux..."
+				sudo pacman -S supertux || $ERR_MSG
+				echo "SuperTux installed."
+			elif [[ $GAME == 2]]; then
+				echo "Installing Xonotic..."
+				sudo pacman -S xonotic || $ERR_MSG 
+				echo "Xonotic installed." 
+			elif [[ $GAME == 3]]; then 
+				echo "Installing SuperTuxKart..."
+				sudo pacman -S supertuxkart || $ERR_MSG
+				echo "SuperTuxKart installed." 
+			elif [[ $GAME == 4]]; then 
+				echo "Installing kPatience..."
+				sudo pacman -S kpat || $ERR_MSG
+				echo "kPatience installed." 
+			elif [[ $GAME == 5 ]]; then 
+				echo "Installing Minetest..." 
+				sudo pacman -S minetest || $ERR_MSG
+				echo "Installed Minetest." 
 		else
 			echo "No valid option selected."
 			exit
@@ -214,19 +221,17 @@ function further_opts() {
 		sleep 1
 		echo "Script exiting."
 		exit
-	else
+	else 
 		echo "No valid option selected. Exiting."
 		exit
 	fi
 }
-########################################################
-# - - - Script Begins Here - - -
-########################################################
+# script runs here
 echo "Nightshade Meta-Distribution Installer"
 cd $HOME
-refresh_repos
+#refresh_repos
 echo "Downloading needed packages..."
-sudo pacman -S $PKGS --noconfirm
+sudo pacman -S $PKGS
 get_Yay
 build_ashWM
 build_ashblocks
@@ -234,10 +239,9 @@ build_nightsurf
 install_System_Stuff
 install_copyStuff
 mkexec
-configure_doas
 further_opts
-echo "All tasks completed."
+echo "All tasks completed." 
 sleep 1
 echo "You are now free to log into ashWM through your session manager. Enjoy!"
 exit
-# TODO: Any other packages we need to include or remove?
+# NOTE: any other packages we want to remove/add? 
