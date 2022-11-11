@@ -32,7 +32,7 @@ VOL="$HOME/ashblocks/volume.sh"
 # system stuff
 ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
 MKPKG="sudo make install"
-PKGS="git arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
+PKGS="git arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish kate gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
 NO_VAL="No valid option selected. Exiting..."
 # functions
 function refresh_repos() {
@@ -85,7 +85,7 @@ function install_System_Stuff() {
 	sudo pacman -S ttf-font-awesome --noconfirm && fc-cache
 	# We want to include glib for glib.h
 	yay -S glib
-	# install protonvpn-gui for vpn 
+	# install protonvpn-gui for vpn
 	yay -S protonvpn-gui
 }
 function install_copyStuff() {
@@ -125,7 +125,7 @@ function mkexec() {
 function further_opts() {
 	o="1 - Browsers | 2 - Programming Tools | 3 - Games"
 	b="1 - Brave | 2 - Vivaldi | 3 - Chrome | 4 - Librewolf | 5 - Firefox Developer Edition"
-	p="1 - kate | 2 - geany"
+	p="1 - code | 2 - geany"
 	g="1 - SuperTux | 2 - Xonotic | 3 - SuperTuxKart | 4 - kPatience | 5 - Minetest"
 	echo "Would you like to install other software?"
 	echo "Type '1' for YES or '2' for NO."
@@ -178,8 +178,8 @@ function further_opts() {
 			read PRO
 			if [[ $PRO == 1 ]]; then
 				echo "Installing Kate..."
-				sudo pacman -S kate --noconfirm || $ERR_MSG
-				echo "Kate installed."
+				sudo pacman -S code --noconfirm || $ERR_MSG
+				echo "Code installed."
 			elif [[ $PRO == 2 ]]; then
 				echo "Installing Geany..."
 				sudo pacman -S geany --noconfirm || $ERR_MSG
