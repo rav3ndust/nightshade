@@ -95,7 +95,7 @@ function install_System_Stuff() {
 function install_copyStuff() {
 	echo "Copying configs and scripts..."
 	echo "Copying ssc..."
-	sudo cp $HOME/ashWM/scripts/ssc.sh /usr/bin/ssc
+	sudo cp $SSC /usr/bin/ssc
 	echo "Copied ssc. Copying Conky.conf..."
 	sudo mkdir /etc/conky && sudo touch /etc/conky/conky.conf
 	sudo cp $CONKYCONF_COPY $CONKYCONF_2
@@ -123,7 +123,7 @@ function mkexec() {
 	chmod +x $AUTOSTART || $ERR_MSG
 	chmod +x $NIGHTSURF_SCRIPT || $ERR_MSG
 	sudo cp $NIGHTSURF_SCRIPT /usr/bin/nightsurf
-	sudo cp $SSC /usr/bin/ssc
+	#sudo cp $SSC /usr/bin/ssc
 	echo "Script permissions applied."
 }
 function configure_doas() {
