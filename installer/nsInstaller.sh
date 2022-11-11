@@ -1,11 +1,11 @@
 #!/bin/bash
 #############################
-# nightshade installer. 
+# nightshade installer.
 #	- by rav3ndust
 # installs our "meta-distro" on any Arch-based distribution.
 #############################
 set -euo pipefail
-UPDATE="sudo pacman -Syu" 
+UPDATE="sudo pacman -Syu"
 DESKTOPFILE="$HOME/nightshade/configs/dwm.desktop"
 DESKTOPFILE_2="/usr/share/xsessions/dwm.desktop"
 ASHWM="https://github.com/rav3ndust/ashWM"
@@ -31,10 +31,10 @@ NOTIF_HIST="$HOME/ashblocks/notif-history.sh"
 VOL="$HOME/ashblocks/volume.sh"
 # system stuff
 ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
-MKPKG="sudo make install" 
+MKPKG="sudo make install"
 PKGS="git arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
-NO_VAL="No valid option selected. Exiting..." 
-# functions 
+NO_VAL="No valid option selected. Exiting..."
+# functions
 function refresh_repos() {
 	echo "Updating repositories..."
 	$UPDATE
@@ -81,15 +81,17 @@ function install_System_Stuff() {
 	yay -S tabbed-git
 	# 'ttf-envy-code-r' is a nice font for us to use.
 	yay -S ttf-envy-code-r && fc-cache
-	# We also want to grab Font Awesome for the images in status bar. 
+	# We also want to grab Font Awesome for the images in status bar.
 	sudo pacman -S ttf-font-awesome --noconfirm && fc-cache
-	# We want to include glib for glib.h 
+	# We want to include glib for glib.h
 	yay -S glib
+	# install protonvpn-gui for vpn 
+	yay -S protonvpn-gui
 }
 function install_copyStuff() {
 	echo "Copying configs and scripts..."
 	echo "Copying ssc..."
-	sudo cp $HOME/ashWM/scripts/ssc.sh /usr/bin/ssc
+	#sudo cp $HOME/ashWM/scripts/ssc.sh /usr/bin/ssc
 	echo "Copied ssc. Copying Conky.conf..."
 	sudo mkdir /etc/conky && sudo touch /etc/conky/conky.conf
 	sudo cp $CONKYCONF_COPY $CONKYCONF_2
@@ -131,7 +133,7 @@ function further_opts() {
 	if [[ $SFTWARE == 1 ]]; then
 		echo "What software category would you like?"
 		echo "Please select your option by entering the number corresponding to its entry in the menu."
-		sleep 1 
+		sleep 1
 		echo $o
 		sleep 1
 		echo "Type your choice: "
@@ -149,7 +151,7 @@ function further_opts() {
 				echo "Brave installed."
 			elif [[ $BROWSER == 2 ]]; then
 				echo "Installing Vivaldi..."
-				sudo pacman -S vivaldi-stable || $ERR_MSG
+				sudo pacman -S vivaldi --noconfirm || $ERR_MSG
 				echo "Vivaldi installed."
 			elif [[ $BROWSER == 3 ]]; then
 				echo "Installing Chrome..."
@@ -161,8 +163,8 @@ function further_opts() {
 				echo "Librewolf installed."
 			elif [[ $BROWSER == 5 ]]; then
 				echo "Installing Firefox Developer Edition..."
-				sudo pacman -S firefox-developer-edition || $ERR_MSG
-				echo "Firefox Developer Edition installed." 
+				sudo pacman -S firefox-developer-edition --noconfirm || $ERR_MSG
+				echo "Firefox Developer Edition installed."
 			else
 				echo $NO_VAL
 				exit
@@ -186,7 +188,7 @@ function further_opts() {
 				echo $NO_VAL
 				exit
 			fi
-		elif [[ $CATEGORY == 3 ]]; then 
+		elif [[ $CATEGORY == 3 ]]; then
 			# list the game options
 			echo "GAMES OPTIONS: "
 			echo $g
@@ -199,24 +201,24 @@ function further_opts() {
 				echo "SuperTux installed."
 			elif [[ $GAME == 2]]; then
 				echo "Installing Xonotic..."
-				sudo pacman -S xonotic --noconfirm || $ERR_MSG 
-				echo "Xonotic installed." 
-			elif [[ $GAME == 3]]; then 
+				sudo pacman -S xonotic --noconfirm || $ERR_MSG
+				echo "Xonotic installed."
+			elif [[ $GAME == 3]]; then
 				echo "Installing SuperTuxKart..."
 				sudo pacman -S supertuxkart --noconfirm || $ERR_MSG
-				echo "SuperTuxKart installed." 
-			elif [[ $GAME == 4]]; then 
+				echo "SuperTuxKart installed."
+			elif [[ $GAME == 4]]; then
 				echo "Installing kPatience..."
 				sudo pacman -S kpat --noconfirm || $ERR_MSG
-				echo "kPatience installed." 
-			elif [[ $GAME == 5 ]]; then 
-				echo "Installing Minetest..." 
+				echo "kPatience installed."
+			elif [[ $GAME == 5 ]]; then
+				echo "Installing Minetest..."
 				sudo pacman -S minetest --noconfirm || $ERR_MSG
-				echo "Installed Minetest." 
-			else 
+				echo "Installed Minetest."
+			else
 				echo $NO_VAL
-				exit 
-			fi 
+				exit
+			fi
 		else
 			echo $NO_VAL
 			exit
@@ -227,7 +229,7 @@ function further_opts() {
 		sleep 1
 		echo "Script exiting."
 		exit
-	else 
+	else
 		echo $NO_VAL
 		exit
 	fi
@@ -246,8 +248,8 @@ install_System_Stuff
 install_copyStuff
 mkexec
 further_opts
-echo "All tasks completed." 
+echo "All tasks completed."
 sleep 1
 echo "You are now free to log into ashWM through your session manager. Enjoy!"
 exit
-# NOTE: any other packages we want to remove/add? 
+# NOTE: any other packages we want to remove/add?
