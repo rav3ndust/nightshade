@@ -33,6 +33,8 @@ VOL="$HOME/ashblocks/volume.sh"
 ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
 MKPKG="sudo make install" 
 PKGS="git arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish code gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
+NO_VAL="No valid option selected. Exiting..." 
+# functions 
 function refresh_repos() {
 	echo "Updating repositories..."
 	$UPDATE
@@ -80,7 +82,7 @@ function install_System_Stuff() {
 	# 'ttf-envy-code-r' is a nice font for us to use.
 	yay -S ttf-envy-code-r && fc-cache
 	# We also want to grab Font Awesome for the images in status bar. 
-	sudo pacman -S ttf-font-awesome && fc-cache
+	sudo pacman -S ttf-font-awesome --noconfirm && fc-cache
 	# We want to include glib for glib.h 
 	yay -S glib
 }
@@ -162,7 +164,7 @@ function further_opts() {
 				sudo pacman -S firefox-developer-edition || $ERR_MSG
 				echo "Firefox Developer Edition installed." 
 			else
-				echo "No valid option selected. Exiting."
+				echo $NO_VAL
 				exit
 			fi
 		elif [[ $CATEGORY == 2 ]]; then
@@ -181,7 +183,7 @@ function further_opts() {
 				sudo pacman -S geany || $ERR_MSG
 				echo "Geany installed."
 			else
-				echo "No valid option selected. Exiting."
+				echo $NO_VAL
 				exit
 			fi
 		elif [[ $CATEGORY == 3 ]]; then 
@@ -211,8 +213,12 @@ function further_opts() {
 				echo "Installing Minetest..." 
 				sudo pacman -S minetest --noconfirm || $ERR_MSG
 				echo "Installed Minetest." 
+			else 
+				echo $NO_VAL
+				exit 
+			fi 
 		else
-			echo "No valid option selected."
+			echo $NO_VAL
 			exit
 		fi
 	elif [[ $SFTWARE == 2 ]]; then
@@ -222,7 +228,7 @@ function further_opts() {
 		echo "Script exiting."
 		exit
 	else 
-		echo "No valid option selected. Exiting."
+		echo $NO_VAL
 		exit
 	fi
 }
