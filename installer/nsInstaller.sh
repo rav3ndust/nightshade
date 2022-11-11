@@ -207,7 +207,7 @@ function further_opts() {
 				echo "Installing SuperTuxKart..."
 				sudo pacman -S supertuxkart --noconfirm || $ERR_MSG
 				echo "SuperTuxKart installed."
-			elif [[ $GAME == 4]]; then
+			elif [[ $GAME == 4 ]]; then
 				echo "Installing kPatience..."
 				sudo pacman -S kpat --noconfirm || $ERR_MSG
 				echo "kPatience installed."
