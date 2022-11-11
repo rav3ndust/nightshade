@@ -159,7 +159,7 @@ function further_opts() {
 				echo "Chrome installed."
 			elif [[ $BROWSER == 4 ]]; then
 				echo "Installing Librewolf..."
-				yay -S librewolf || $ERR_MSG
+				yay -S librewolf-bin || $ERR_MSG
 				echo "Librewolf installed."
 			elif [[ $BROWSER == 5 ]]; then
 				echo "Installing Firefox Developer Edition..."
