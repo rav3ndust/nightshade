@@ -39,7 +39,7 @@ PKGS="git arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmu
 NO_VAL="No valid option selected. Exiting..."
 # Script Target locations (located in /usr/bin)
 SSC_TARGET="/usr/bin/ssc"
-NIGHTSURF_TARGET="usr/bin/nightsurf"
+NIGHTSURF_TARGET="/usr/bin/nightsurf"
 #####################################################
 # - - - - - Functions - - - - -
 #####################################################
