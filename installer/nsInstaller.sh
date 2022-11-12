@@ -1,11 +1,14 @@
 #!/bin/bash
-#############################
+################################################
 # nightshade installer.
 #	- by rav3ndust
 # installs our "meta-distro" on any Arch-based distribution.
-#############################
+################################################
 set -euo pipefail
-UPDATE="sudo pacman -Syu"
+################################################
+# - - - - - Variables - - - - -
+################################################
+UPDATE="sudo pacman -Sy"
 DESKTOPFILE="$HOME/nightshade/configs/dwm.desktop"
 DESKTOPFILE_2="/usr/share/xsessions/dwm.desktop"
 ASHWM="https://github.com/rav3ndust/ashWM"
@@ -34,7 +37,12 @@ ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
 MKPKG="sudo make install"
 PKGS="git arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish kate gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
 NO_VAL="No valid option selected. Exiting..."
-# functions
+# Script Target locations (located in /usr/bin)
+SSC_TARGET="/usr/bin/ssc"
+NIGHTSURF_TARGET="usr/bin/nightsurf"
+#####################################################
+# - - - - - Functions - - - - -
+#####################################################
 function refresh_repos() {
 	echo "Updating repositories..."
 	$UPDATE
@@ -66,7 +74,7 @@ function build_ashblocks() {
 	cd $HOME
 }
 function build_nightsurf() {
-	echo "Building nightsurf browser..."
+	echo "Building Nightsurf browser..."
 	git clone $NIGHTSURF
 	cd nightsurf
 	make || $ERR_MSG
@@ -117,8 +125,8 @@ function mkexec() {
 	chmod +x $VOL || $ERR_MSG
 	chmod +x $AUTOSTART || $ERR_MSG
 	chmod +x $NIGHTSURF_SCRIPT || $ERR_MSG
-	sudo cp $NIGHTSURF_SCRIPT /usr/bin/nightsurf
-	sudo cp $SSC /usr/bin/ssc
+	sudo cp $NIGHTSURF_SCRIPT $NIGHTSURF_TARGET
+	sudo cp $SSC $SSC_TARGET
 	echo "Script permissions applied."
 }
 function further_opts() {
@@ -276,9 +284,9 @@ function further_opts() {
 # script runs here
 echo "Nightshade Meta-Distribution Installer"
 cd $HOME
-#refresh_repos
+refresh_repos
 echo "Downloading needed packages..."
-sudo pacman -Sy $PKGS --noconfirm
+sudo pacman -S $PKGS --noconfirm
 get_Yay
 build_ashWM
 build_ashblocks
