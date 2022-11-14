@@ -33,7 +33,7 @@ LAUNCH_SSC="$HOME/ashblocks/launchssc.sh"
 NOTIF_HIST="$HOME/ashblocks/notif-history.sh"
 VOL="$HOME/ashblocks/volume.sh"
 # system stuff
-ERR_MSG="Sorry, something went wrong. Please check logs."
+ERR_MSG="Sorry, something went wrong."
 MKPKG="sudo make install"
 PKGS="git xterm arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish kate gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
 NO_VAL="No valid option selected. Exiting..."
@@ -44,13 +44,13 @@ NIGHTSURF_TARGET="/usr/bin/nightsurf"
 # - - - - - Functions - - - - -
 #####################################################
 function _ERR() {
-	# this function will run when a problem is detected. 
-	# will display an error message and exit the script. 
+	# this function will run when a problem is detected.
+	# will display an error message and exit the script.
 	local exitmsg="Now exiting the program. Please review logs."
 	echo $ERR_MSG
 	sleep 1
-	echo $exitmsg 
-	sleep 1 && exit 
+	echo $exitmsg
+	sleep 1 && exit
 }
 function refresh_repos() {
 	echo "Updating repositories..."
@@ -126,7 +126,7 @@ function install_copyStuff() {
 }
 function mkexec() {
 	# make scripts executable
-	# scripts located in two locations: 
+	# scripts located in two locations:
 	#	- $HOME/ashWM/scripts/
 	#	- $HOME/ashblocks/
 	echo "Making scripts executable..."
@@ -153,6 +153,7 @@ function further_opts() {
 	# PROGRAMMING options
 	code="Code"
 	geany="Geany"
+	sublime="Sublime Text"
 	# GAME options
 	s_Tux="SuperTux"
 	s_TuxKart="SuperTuxKart"
@@ -163,7 +164,7 @@ function further_opts() {
 	# list
 	o="1 - Browsers | 2 - Programming Tools | 3 - Games"
 	b="1 - $brave | 2 - $vivaldi | 3 - $chrome | 4 - $librewolf | 5 - $ff_dev | 6 - $ms_edge"
-	p="1 - $code | 2 - $geany"
+	p="1 - $code | 2 - $geany | 3 - $sublime"
 	g="1 - $s_Tux | 2 - $xonotic | 3 - $s_TuxKart | 4 - $kpati | 5 - $mt | 6 - $mc"
 	echo "Would you like to install other software?"
 	echo "Type '1' for YES or '2' for NO."
@@ -234,6 +235,11 @@ function further_opts() {
 				echo "Installing $geany..."
 				sudo pacman -S $package --noconfirm || _ERR
 				echo "$geany installed."
+			elif [[ $PRO == 3 ]]; then
+				local package="sublime-text-4"
+				echo "Installing $sublime..."
+				yay -S $package || _ERR
+				echo "$sublime installed."
 			else
 				echo $NO_VAL
 				exit
