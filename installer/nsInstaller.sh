@@ -35,7 +35,7 @@ VOL="$HOME/ashblocks/volume.sh"
 # system stuff
 ERR_MSG="Sorry, something went wrong."
 MKPKG="sudo make install"
-PKGS="git xterm arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish kate gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
+PKGS="git xterm arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish kate gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst firejail firetools"
 NO_VAL="No valid option selected. Exiting..."
 # Script Target locations (located in /usr/bin)
 SSC_TARGET="/usr/bin/ssc"
