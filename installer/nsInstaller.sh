@@ -33,7 +33,7 @@ LAUNCH_SSC="$HOME/ashblocks/launchssc.sh"
 NOTIF_HIST="$HOME/ashblocks/notif-history.sh"
 VOL="$HOME/ashblocks/volume.sh"
 # system stuff
-ERR_MSG="echo 'Sorry, something went wrong. Please check logs.'"
+ERR_MSG="Sorry, something went wrong. Please check logs."
 MKPKG="sudo make install"
 PKGS="git xterm arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish kate gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst"
 NO_VAL="No valid option selected. Exiting..."
@@ -43,6 +43,15 @@ NIGHTSURF_TARGET="/usr/bin/nightsurf"
 #####################################################
 # - - - - - Functions - - - - -
 #####################################################
+function _ERR() {
+	# this function will run when a problem is detected. 
+	# will display an error message and exit the script. 
+	local exitmsg="Now exiting the program. Please review logs."
+	echo $ERR_MSG
+	sleep 1
+	echo $exitmsg 
+	sleep 1 && exit 
+}
 function refresh_repos() {
 	echo "Updating repositories..."
 	$UPDATE
@@ -52,15 +61,15 @@ function get_Yay() {
 	echo "Building yay AUR helper..."
 	git clone $YAY_LINK
 	cd yay
-	makepkg -si || $ERR_MSG
+	makepkg -si || _ERR
 	cd $HOME
 }
 function build_ashWM() {
 	echo "Building ashWM..."
 	git clone $ASHWM
 	cd ashWM
-	make || $ERR_MSG
-	$MKPKG || $ERR_MSG
+	make || _ERR
+	$MKPKG || _ERR
 	echo "ashWM built."
 	cd $HOME
 }
@@ -68,8 +77,8 @@ function build_ashblocks() {
 	echo "Building ashblocks..."
 	git clone $ASHBLOCKS
 	cd ashblocks
-	make || $ERR_MSG
-	$MKPKG || $ERR_MSG
+	make || _ERR
+	$MKPKG || _ERR
 	echo "ashblocks built."
 	cd $HOME
 }
@@ -77,24 +86,25 @@ function build_nightsurf() {
 	echo "Building Nightsurf browser..."
 	git clone $NIGHTSURF
 	cd nightsurf
-	make || $ERR_MSG
-	$MKPKG || $ERR_MSG
+	make || _ERR
+	$MKPKG || _ERR
 	echo "nightsurf built."
 	cd $HOME
 }
 function install_System_Stuff() {
+	local pkg_Installation_Err="Package installation failed. Please check logs and try again later."
 	# 'st' is the suckless terminal.
-	yay -S st
+	yay -S st || echo $pkg_Installation_Err && sleep 1
 	# 'tabbed' is for tabbed browsing sessions in nightsurf
-	yay -S tabbed-git
+	yay -S tabbed-git || echo $pkg_Installation_Err && sleep 1
 	# 'ttf-envy-code-r' is a nice font for us to use.
-	yay -S ttf-envy-code-r && fc-cache
+	yay -S ttf-envy-code-r && fc-cache || echo $pkg_Installation_Err && sleep 1
 	# We also want to grab Font Awesome for the images in status bar.
-	sudo pacman -S ttf-font-awesome --noconfirm && fc-cache
+	sudo pacman -S ttf-font-awesome --noconfirm && fc-cache || echo $pkg_Installation_Err && sleep 1
 	# We want to include glib for glib.h
-	yay -S glib
+	yay -S glib || echo $pkg_Installation_Err && sleep 1
 	# install protonvpn-gui for vpn
-	yay -S protonvpn-gui
+	yay -S protonvpn-gui || echo $pkg_Installation_Err && sleep 1
 }
 function install_copyStuff() {
 	echo "Copying configs and scripts..."
@@ -116,17 +126,20 @@ function install_copyStuff() {
 }
 function mkexec() {
 	# make scripts executable
+	# scripts located in two locations: 
+	#	- $HOME/ashWM/scripts/
+	#	- $HOME/ashblocks/
 	echo "Making scripts executable..."
-	chmod +x $SSC || $ERR_MSG
-	chmod +x $BATT || $ERR_MSG
-	chmod +x $NETW || $ERR_MSG
-	chmod +x $LAUNCH_SSC || $ERR_MSG
-	chmod +x $NOTIF_HIST || $ERR_MSG
-	chmod +x $VOL || $ERR_MSG
-	chmod +x $AUTOSTART || $ERR_MSG
-	chmod +x $NIGHTSURF_SCRIPT || $ERR_MSG
-	sudo cp $NIGHTSURF_SCRIPT $NIGHTSURF_TARGET
-	sudo cp $SSC $SSC_TARGET
+	chmod +x $SSC || _ERR
+	chmod +x $BATT || _ERR
+	chmod +x $NETW || _ERR
+	chmod +x $LAUNCH_SSC || _ERR
+	chmod +x $NOTIF_HIST || _ERR
+	chmod +x $VOL || _ERR
+	chmod +x $AUTOSTART || _ERR
+	chmod +x $NIGHTSURF_SCRIPT || _ERR
+	sudo cp $NIGHTSURF_SCRIPT $NIGHTSURF_TARGET || _ERR
+	sudo cp $SSC $SSC_TARGET || _ERR
 	echo "Script permissions applied."
 }
 function further_opts() {
@@ -173,32 +186,32 @@ function further_opts() {
 			if [[ $BROWSER == 1 ]]; then
 				local package="brave-bin"
 				echo "Installing $brave..."
-				yay -S $package || $ERR_MSG
+				yay -S $package || _ERR
 				echo "$brave installed."
 			elif [[ $BROWSER == 2 ]]; then
 				local package="vivaldi"
 				echo "Installing $vivaldi..."
-				sudo pacman -S $package --noconfirm || $ERR_MSG
+				sudo pacman -S $package --noconfirm || _ERR
 				echo "$vivaldi installed."
 			elif [[ $BROWSER == 3 ]]; then
 				local package="google-chrome"
 				echo "Installing $chrome..."
-				yay -S $package || $ERR_MSG
+				yay -S $package || _ERR
 				echo "$chrome installed."
 			elif [[ $BROWSER == 4 ]]; then
 				local package="librewolf-bin"
 				echo "Installing $librewolf..."
-				yay -S $package || $ERR_MSG
+				yay -S $package || _ERR
 				echo "$librewolf installed."
 			elif [[ $BROWSER == 5 ]]; then
 				local package="firefox-developer-edition"
 				echo "Installing $ff_dev..."
-				sudo pacman -S $package --noconfirm || $ERR_MSG
+				sudo pacman -S $package --noconfirm || _ERR
 				echo "$ff_dev installed."
 			elif [[ $BROWSER == 6 ]]; then
 				local package="microsoft-edge-stable-bin"
 				echo "Installing $ms_edge..."
-				yay -S $package || $ERR_MSG
+				yay -S $package || _ERR
 				echo "$ms_edge installed."
 			else
 				echo $NO_VAL
@@ -214,12 +227,12 @@ function further_opts() {
 			if [[ $PRO == 1 ]]; then
 				local package="code"
 				echo "Installing $code..."
-				sudo pacman -S $package --noconfirm || $ERR_MSG
+				sudo pacman -S $package --noconfirm || _ERR
 				echo "$code installed."
 			elif [[ $PRO == 2 ]]; then
 				local package="geany"
 				echo "Installing $geany..."
-				sudo pacman -S $package --noconfirm || $ERR_MSG
+				sudo pacman -S $package --noconfirm || _ERR
 				echo "$geany installed."
 			else
 				echo $NO_VAL
@@ -235,32 +248,32 @@ function further_opts() {
 			if [[ $GAME == 1 ]]; then
 				local package="supertux"
 				echo "Installing $s_Tux..."
-				sudo pacman -S $package --noconfirm || $ERR_MSG
+				sudo pacman -S $package --noconfirm || _ERR
 				echo "$s_Tux installed."
 			elif [[ $GAME == 2 ]]; then
 				local package="xonotic"
 				echo "Installing $xonotic..."
-				sudo pacman -S $package --noconfirm || $ERR_MSG
+				sudo pacman -S $package --noconfirm || _ERR
 				echo "$xonotic installed."
 			elif [[ $GAME == 3 ]]; then
 				local package="supertuxkart"
 				echo "Installing $s_TuxKart..."
-				sudo pacman -S $package --noconfirm || $ERR_MSG
+				sudo pacman -S $package --noconfirm || _ERR
 				echo "$s_TuxKart installed."
 			elif [[ $GAME == 4 ]]; then
 				local package="kpat"
 				echo "Installing $kpati..."
-				sudo pacman -S $package --noconfirm || $ERR_MSG
+				sudo pacman -S $package --noconfirm || _ERR
 				echo "$kpati installed."
 			elif [[ $GAME == 5 ]]; then
 				local package="minetest"
 				echo "Installing $mt..."
-				sudo pacman -S $package --noconfirm || $ERR_MSG
+				sudo pacman -S $package --noconfirm || _ERR
 				echo "$mt installed."
 			elif [[ $GAME == 6 ]]; then
 				local package="minecraft-launcher"
 				echo "Installing $mc..."
-				yay -S $package || $ERR_MSG
+				yay -S $package || _ERR
 				echo "$mc installed."
 			else
 				echo $NO_VAL
