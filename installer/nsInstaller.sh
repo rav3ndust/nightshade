@@ -35,11 +35,13 @@ VOL="$HOME/ashblocks/volume.sh"
 # system stuff
 ERR_MSG="Sorry, something went wrong."
 MKPKG="sudo make install"
-PKGS="git xterm arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish kate gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock dunst firejail firetools"
+PKGS="git xterm arandr nitrogen feh rofi torsocks pamixer opendoas alacritty kitty cmus vim flameshot tmux micro picom mpv pulsemixer gcr webkit2gtk neofetch pavucontrol nnn electrum fish kate gedit zathura nemo sddm chromium amfora firefox qutebrowser tor torbrowser-launcher sxiv scrot slock dmenu conky polkit lxsession networkmanager nm-connection-editor xorg-xkill xorg-xsetroot xscreensaver xautolock xss-lock dunst firejail firetools"
 NO_VAL="No valid option selected. Exiting..."
 # Script Target locations (located in /usr/bin)
 SSC_TARGET="/usr/bin/ssc"
 NIGHTSURF_TARGET="/usr/bin/nightsurf"
+# Messages. 
+ns_Msg="This script is meant to be run on a vanilla Arch installation with GNOME installed. It will install some GNOME extensions, some extra packages, and some GNOME extensions for customization. It will also enable AUR support and install some custom applications." 
 #####################################################
 # - - - - - Functions - - - - -
 #####################################################
@@ -63,6 +65,24 @@ function get_Yay() {
 	cd yay
 	makepkg -si || _ERR
 	cd $HOME
+}
+function gnome_exts_installation() {
+	# We're using a few GNOME extensions. 
+	# Only two regularly: 
+	# - dash-to-dock (for GNOME dock support) 
+	# - blur-my-shell (for blurring/transparency effects) 
+	local dash2dock="gnome-shell-extension-dash-to-dock" 
+	local blurMyShell="gnome-shell-extension-blur-my-shell" 
+	local msg="GNOME extensions installed."
+	local msg2="You can customize your extensions in the Extensions app."
+	echo "Installing 'Dash to Dock' GNOME extension..." 
+	sleep 1
+	yay -S $dash2dock || _ERR
+	echo "Installing 'Blur My Shell' GNOME extension..." 
+	sleep 1
+	yay -S $blurMyShell || _ERR
+	sleep 1 && echo "$msg" 
+	sleep 1 && echo "$msg2" 
 }
 function build_ashWM() {
 	echo "Building ashWM..."
@@ -302,11 +322,15 @@ function further_opts() {
 }
 # script runs here
 echo "Nightshade Meta-Distribution Installer"
+sleep 1
+echo "$ns_Msg" 
+sleep 1
 cd $HOME
 refresh_repos
 echo "Downloading needed packages..."
 sudo pacman -S $PKGS --noconfirm
 get_Yay
+gnome_exts_installation
 build_ashWM
 build_ashblocks
 build_nightsurf
