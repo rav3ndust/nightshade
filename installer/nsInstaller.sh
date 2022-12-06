@@ -68,11 +68,13 @@ function get_Yay() {
 }
 function gnome_exts_installation() {
 	# We're using a few GNOME extensions. 
-	# Only two regularly: 
+	# Only three regularly:
 	# - dash-to-dock (for GNOME dock support) 
 	# - blur-my-shell (for blurring/transparency effects) 
+	# - appindicator - for applet support in GNOME terminal
 	local dash2dock="gnome-shell-extension-dash-to-dock" 
-	local blurMyShell="gnome-shell-extension-blur-my-shell" 
+	local blurMyShell="gnome-shell-extension-blur-my-shell"
+	local appindicator="gnome-shell-extension-appindicator"
 	local msg="GNOME extensions installed."
 	local msg2="You can customize your extensions in the Extensions app."
 	echo "Installing 'Dash to Dock' GNOME extension..." 
@@ -81,8 +83,46 @@ function gnome_exts_installation() {
 	echo "Installing 'Blur My Shell' GNOME extension..." 
 	sleep 1
 	yay -S $blurMyShell || _ERR
+	echo "Installing 'AppIndicator' GNOME extension..."
+	sleep 1
+	sudo pacman -S $appindicator --noconfirm || _ERR
 	sleep 1 && echo "$msg" 
 	sleep 1 && echo "$msg2" 
+}
+function desktop_extras() {
+	# this function goes in the extras selection area.
+	# it will be used for things like:
+	# - installing additional desktop environments and window managers
+	# - running the gnome_exts_installation func if user desires GNOME extensions
+	local opt1="Additional Desktop Environments"
+	local opt2="Additional Window Managers"
+	local opt3="GNOME Shell Extensions"
+	echo "Desktop Extras Selection Options"
+	sleep 1
+	echo "1 - $opt1 | 2 - $opt2 | 3 - $opt3"
+	sleep 1
+	echo "Please type your selection: "
+	read desktop_selection
+	if [[ $desktop_selection == 1 ]]; then
+		local gnome="GNOME"
+		local kde="KDE"
+		local cinnamon="Cinnamon"
+		echo "Which of these would you like to install?"
+		# TODO add logic to install the above options.
+	elif [[ $desktop_selection == 2 ]]; then
+		local qtile="Qtile"
+		local bspwm="bspwm"
+		local openbox="Openbox"
+		echo "Which of these would you like to install?"
+		# TODO add logic to install the above options.
+	elif [[ $desktop_selection == 3 ]]; then
+		echo "Installing GNOME Shell extensions..."
+		# run the gnome_exts_installation func to install our extensions selection.
+		gnome_exts_installation || _ERR
+	else
+		echo "Exiting the script." && sleep 1
+		exit
+	fi
 }
 function build_ashWM() {
 	echo "Building ashWM..."
@@ -321,16 +361,16 @@ function further_opts() {
 	fi
 }
 # script runs here
+cd
 echo "Nightshade Meta-Distribution Installer"
 sleep 1
-echo "$ns_Msg" 
+echo "$ns_Msg"
 sleep 1
 cd $HOME
 refresh_repos
 echo "Downloading needed packages..."
 sudo pacman -S $PKGS --noconfirm
 get_Yay
-gnome_exts_installation
 build_ashWM
 build_ashblocks
 build_nightsurf
