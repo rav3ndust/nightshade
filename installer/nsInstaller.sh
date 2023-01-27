@@ -42,10 +42,11 @@ SSC_TARGET="/usr/bin/ssc"
 NIGHTSURF_TARGET="/usr/bin/nightsurf"
 # Messages. 
 ns_Msg="This script is meant to be run on a vanilla Arch installation with GNOME installed. It will install some GNOME extensions, some extra packages, and some GNOME extensions for customization. It will also enable AUR support and install some custom applications." 
+STATFILE="larbs.mom"
 #####################################################
 # - - - - - Functions - - - - -
 #####################################################
-function _ERR() {
+ _ERR() {
 	# this function will run when a problem is detected.
 	# will display an error message and exit the script.
 	local exitmsg="Now exiting the program. Please review logs."
@@ -54,19 +55,19 @@ function _ERR() {
 	echo $exitmsg
 	sleep 1 && exit
 }
-function refresh_repos() {
+refresh_repos() {
 	echo "Updating repositories..."
 	$UPDATE
 	echo "Repositories updated."
 }
-function get_Yay() {
+get_Yay() {
 	echo "Building yay AUR helper..."
 	git clone $YAY_LINK
 	cd yay
 	makepkg -si || _ERR
 	cd $HOME
 }
-function gnome_exts_installation() {
+gnome_exts_installation() {
 	# We're using a few GNOME extensions. 
 	# Only three regularly:
 	# - dash-to-dock (for GNOME dock support) 
@@ -89,7 +90,7 @@ function gnome_exts_installation() {
 	sleep 1 && echo "$msg" 
 	sleep 1 && echo "$msg2" 
 }
-function desktop_extras() {
+desktop_extras() {
 	# this function goes in the extras selection area.
 	# it will be used for things like:
 	# - installing additional desktop environments and window managers
@@ -124,7 +125,7 @@ function desktop_extras() {
 		exit
 	fi
 }
-function build_ashWM() {
+build_ashWM() {
 	echo "Building ashWM..."
 	git clone $ASHWM
 	cd ashWM
@@ -133,7 +134,7 @@ function build_ashWM() {
 	echo "ashWM built."
 	cd $HOME
 }
-function build_ashblocks() {
+build_ashblocks() {
 	echo "Building ashblocks..."
 	git clone $ASHBLOCKS
 	cd ashblocks
@@ -142,7 +143,7 @@ function build_ashblocks() {
 	echo "ashblocks built."
 	cd $HOME
 }
-function build_nightsurf() {
+build_nightsurf() {
 	echo "Building Nightsurf browser..."
 	git clone $NIGHTSURF
 	cd nightsurf
@@ -151,7 +152,7 @@ function build_nightsurf() {
 	echo "nightsurf built."
 	cd $HOME
 }
-function install_System_Stuff() {
+install_System_Stuff() {
 	local pkg_Installation_Err="Package installation failed. Please check logs and try again later."
 	# 'st' is the suckless terminal.
 	yay -S st || echo $pkg_Installation_Err && sleep 1
@@ -166,7 +167,7 @@ function install_System_Stuff() {
 	# install protonvpn-gui for vpn
 	yay -S protonvpn-gui || echo $pkg_Installation_Err && sleep 1
 }
-function install_copyStuff() {
+install_copyStuff() {
 	echo "Copying configs and scripts..."
 	sleep 1
 	echo "Copying Conky.conf..."
@@ -184,7 +185,7 @@ function install_copyStuff() {
 	sudo cp $DESKTOPFILE $DESKTOPFILE_2
 	echo "Desktop file created. You can now login to ashWM in your login manager."
 }
-function mkexec() {
+mkexec() {
 	# make scripts executable
 	# scripts located in two locations:
 	#	- $HOME/ashWM/scripts/
@@ -202,7 +203,7 @@ function mkexec() {
 	sudo cp $SSC $SSC_TARGET || _ERR
 	echo "Script permissions applied."
 }
-function further_opts() {
+further_opts() {
 	# BROWSER options
 	brave="Brave"
 	vivaldi="Vivaldi"
@@ -361,6 +362,7 @@ function further_opts() {
 	fi
 }
 # script runs here
+touch $STATFILE
 cd
 echo "Nightshade Meta-Distribution Installer"
 sleep 1
