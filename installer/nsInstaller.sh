@@ -67,7 +67,7 @@ get_Yay() {
 	makepkg -si || _ERR
 	cd $HOME
 }
-flatpak_support() {
+flatpak_support_handler() {
     # handles supporting Flatpak app installations.
     local pkg="flatpak"
     echo "Installing support for Flatpak applications..."
@@ -77,7 +77,7 @@ flatpak_support() {
     echo "These changes will take effect on next system restart."
     sleep 1
 }
-snap_support() {
+snap_support_handler() {
     # handles supporting Snap app installations.
     local pkg="https://aur.archlinux.org/snapd.git"
     echo "Installing support for Snap applications..."
