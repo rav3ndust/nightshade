@@ -109,13 +109,53 @@ desktop_extras() {
 		local kde="KDE"
 		local cinnamon="Cinnamon"
 		echo "Which of these would you like to install?"
-		# TODO add logic to install the above options.
+        sleep 1
+        echo "1 - $gnome | 2 - $kde | 3 - $cinnamon"
+        read desktop_opt
+        if [[ $desktop_opt == 1 ]]; then 
+            echo "Installing the GNOME desktop environment..."
+            sudo pacman -S gnome --noconfirm 
+            echo "GNOME desktop environment installed."
+            sleep 1
+        elif [[ $desktop_opt == 2 ]]; then
+            echo "Installing the KDE Plasma desktop environment..."
+            sudo pacman -S plasma-desktop --noconfirm
+            echo "KDE Plasma desktop environment installed."
+            sleep 1
+        elif [[ $desktop_opt == 3 ]]; then
+            echo "Installing Cinnamon desktop environment..."
+            sudo pacman -S cinnamon --noconfirm 
+            echo "Cinnamon desktop environment installed."
+            sleep 1
+        else
+            echo "No valid option selected." && sleep 1
+        fi 
 	elif [[ $desktop_selection == 2 ]]; then
 		local qtile="Qtile"
 		local bspwm="bspwm"
 		local openbox="Openbox"
 		echo "Which of these would you like to install?"
-		# TODO add logic to install the above options.
+        sleep 1
+        echo "1 - $qtile | 2 - $bspwm | 3 - $openbox"
+        read wm_opt
+        if [[ $wm_opt == 1 ]]; then 
+            echo "Installing Qtile window manager..."
+            sudo pacman -S qtile --noconfirm
+            echo "Qtile window manager installed."
+            sleep 1
+        elif [[ $wm_opt == 2 ]]; then
+            echo "Installing BSPWM window manager..."
+            sudo pacman -S bspwm --noconfirm
+            echo "BSPWM window manager installed."
+            sleep 1
+        elif [[ $wm_opt == 3 ]]; then 
+            echo "Installing Openbox window manager..."
+            sudo pacman -S openbox --noconfirm
+            echo "Openbox window manager installed."
+            sleep 1
+        else
+            echo "No valid option selected." && sleep 1
+        fi  
 	elif [[ $desktop_selection == 3 ]]; then
 		echo "Installing GNOME Shell extensions..."
 		# run the gnome_exts_installation func to install our extensions selection.
