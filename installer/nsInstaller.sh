@@ -448,3 +448,4 @@ exit
 # NOTE: any other packages we want to remove/add?
 # TODO: 
 #   - add Flatpak/Snap functions into the main script. 
+#  - add support for installing wiredWM on the next iteration.
