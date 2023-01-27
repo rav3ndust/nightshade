@@ -42,7 +42,7 @@ SSC_TARGET="/usr/bin/ssc"
 NIGHTSURF_TARGET="/usr/bin/nightsurf"
 # Messages. 
 ns_Msg="This script is meant to be run on a vanilla Arch installation with GNOME installed. It will install some GNOME extensions, some extra packages, and some GNOME extensions for customization. It will also enable AUR support and install some custom applications." 
-STATFILE="larbs.mom"
+STATFILE="larbs.mom"    # will be replaced in a future update.
 #####################################################
 # - - - - - Functions - - - - -
 #####################################################
@@ -66,6 +66,27 @@ get_Yay() {
 	cd yay
 	makepkg -si || _ERR
 	cd $HOME
+}
+flatpak_support() {
+    # handles supporting Flatpak app installations.
+    local pkg="flatpak"
+    echo "Installing support for Flatpak applications..."
+    sudo pacman -S $pkg --noconfirm 
+    echo "Flatpak support installed."
+    sleep 1
+    echo "These changes will take effect on next system restart."
+    sleep 1
+}
+snap_support() {
+    # handles supporting Snap app installations.
+    local pkg="https://aur.archlinux.org/snapd.git"
+    echo "Installing support for Snap applications..."
+    git clone $pkg
+    cd snapd 
+    makepkg -si 
+    sudo systemctl enable --now snapd.socket
+    echo "Snap support enabled."
+    sleep 1
 }
 gnome_exts_installation() {
 	# We're using a few GNOME extensions. 
@@ -425,3 +446,5 @@ sleep 1
 echo "You are now free to log into ashWM through your session manager. Enjoy!"
 exit
 # NOTE: any other packages we want to remove/add?
+# TODO: 
+#   - add Flatpak/Snap functions into the main script. 
