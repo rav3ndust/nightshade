@@ -31,7 +31,10 @@ install_nix () {
 }
 common_pkg_questionnaire () {	
 	# allows the user to install common applications through nix right away if desired
-	browsers=("Brave" "Chrome" "Microsoft Edge" "Firefox")
+	browsers=("Brave" "Chrome" "Microsoft Edge" "Firefox" "Librewolf" "Tor Browser")
+	comms=("Element" "Telegram" "Skype" "Discord" "Hexchat") 
+	dev=("VS Code" "Sublime Text" "Gedit" "Sublime Merge")
+	sys=("Timeshift" "Alacritty" "Kitty" "Nemo" "Bleachbit")  
 	# TODO write the logic for installing each of these options through user choice
 }
 main () {
