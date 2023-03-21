@@ -4,9 +4,11 @@
 -- Written for use on Debian/Ubuntu-based systems.
 -- | | | *NOTE: This is the TESTING version of the script.* | | | 
 -- ###################################################
+-- script vars
 local TITLE = "nightshade installer"
 local VERSION = 0.1
 local CHANNELS = {"Testing", "Development", "Stable"}
+-- package vars
 local dev_packages = {"git", "vim", "python3", "python3-pip", "python3-venv", "lua5.4", "fish", "htop", "filezilla"}
 local base_packages = {"chromium", "torbrowser-launcher", "gpa", "telegram-desktop", "virtualbox-qt", "netsurf", "gnome-weather", "gnome-todo"}
 local games = {"minetest", "nexuiz", "gnome-chess", "kcheckers", "aisleriot-solitaire", "openarena"}
@@ -53,3 +55,4 @@ end
 -- Script entry point
 -- ###################################################
 main()
+-- TODO: finish up some logic in the script, test.
