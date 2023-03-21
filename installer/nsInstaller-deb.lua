@@ -47,6 +47,7 @@ function wiredWM_install_configure()
 end
 function main()
     -- main function.
+    print(string.format("%s - version %d, %s", TITLE, VERSION, CHANNELS[0]))
 end
 -- ###################################################
 -- Script entry point
