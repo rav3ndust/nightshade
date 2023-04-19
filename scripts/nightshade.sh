@@ -25,7 +25,7 @@ minetest="net.minetest.Minetest"                    # Minetest
 retroarch="org.libretro.RetroArch"                  # RetroArch
 taisei="org.taisei_project.Taisei"                  # Taisei
 xonotic="org.xonotic.Xonotic"                       # Xonotic
-sc_pinball="com.github.k4zmu2a.spacecadetpinball"    # Space Cadet Pinball
+sc_pinball="com.github.k4zmu2a.spacecadetpinball"   # Space Cadet Pinball
 #############################################################################
 # functions
 #############################################################################
