@@ -14,17 +14,18 @@ core_pkgs=("git" "vim" "gpa" "obs-studio" "filezilla" "fish" "cmus" "htop" "gnom
 # .deb games, Steam
 games=("steam" "assaultcube" "openarena" "aisleriot" "gweled" "supertuxkart" "supertux2")
 # flatpak applications
-flatseal="com.github.tchx84.Flatseal"           # Flatseal (flatpak permissions manager)
-electrum="org.electrum.electrum"                # Electrum Bitcoin Wallet
-feather="org.featherwallet.Feather"             # Feather Monero Wallet
-mullvad_browser="net.mullvad.MullvadBrowser"    # Mullvad Browser
-skype="com.skype.Client"                        # Skype
-nicotine="org.nicotine_plus.Nicotine"           # Nicotine+, Soulseek client
-pulsar="dev.pulsar_edit.Pulsar"                 # Pulsar text editor
-minetest="net.minetest.Minetest"                # Minetest
-retroarch="org.libretro.RetroArch"              # RetroArch
-taisei="org.taisei_project.Taisei"              # Taisei
-xonotic="org.xonotic.Xonotic"                   # Xonotic
+flatseal="com.github.tchx84.Flatseal"               # Flatseal (flatpak permissions manager)
+electrum="org.electrum.electrum"                    # Electrum Bitcoin Wallet
+feather="org.featherwallet.Feather"                 # Feather Monero Wallet
+mullvad_browser="net.mullvad.MullvadBrowser"        # Mullvad Browser
+skype="com.skype.Client"                            # Skype
+nicotine="org.nicotine_plus.Nicotine"               # Nicotine+, Soulseek client
+pulsar="dev.pulsar_edit.Pulsar"                     # Pulsar text editor
+minetest="net.minetest.Minetest"                    # Minetest
+retroarch="org.libretro.RetroArch"                  # RetroArch
+taisei="org.taisei_project.Taisei"                  # Taisei
+xonotic="org.xonotic.Xonotic"                       # Xonotic
+sc_pinball="com.github.k4zmu2a.spacecadetpinball"    # Space Cadet Pinball
 #############################################################################
 # functions
 #############################################################################
