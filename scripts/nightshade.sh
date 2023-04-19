@@ -10,7 +10,7 @@ set -euo pipefail
 #############################################################################
 TITLE="Nightshade Auto-Installation Script"; VERSION=0.1
 # application vars
-core_pkgs=("git" "vim" "gpa" "obs-studio" "filezilla" "fish" "cmus" "htop" "gnome-weather" "gnome-todo" "mpv" "neofetch" "chromium" "firefox" "torbrowser-launcher" "rhythmbox" "telegram-desktop" "cowsay" "wireshark" "ufw" "gufw" "virtualbox-qt" "sublime-text" "sublime-merge") # TODO: Add other packages to core_pkgs? 
+core_pkgs=("git" "vim" "gpa" "obs-studio" "filezilla" "fish" "cmus" "htop" "gnome-weather" "gnome-todo" "mpv" "neofetch" "chromium" "firefox" "torbrowser-launcher" "rhythmbox" "telegram-desktop" "cowsay" "wireshark" "ufw" "gufw" "virtualbox-qt" "sublime-text" "sublime-merge" "thunderbird") # TODO: Add other packages to core_pkgs? 
 # .deb games, Steam
 games=("steam" "assaultcube" "openarena" "aisleriot" "gweled" "supertuxkart" "supertux2")
 # flatpak applications
