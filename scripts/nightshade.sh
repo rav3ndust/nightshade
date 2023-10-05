@@ -15,6 +15,7 @@ core_pkgs=("git" "vim" "gpa" "obs-studio" "filezilla" "fish" "cmus" "htop" "gnom
 games=("steam" "assaultcube" "openarena" "aisleriot" "gweled" "supertuxkart" "supertux2")
 # flatpak applications
 flatseal="com.github.tchx84.Flatseal"               # Flatseal (flatpak permissions manager)
+blackbox="com.raggesilver.BlackBox"                 # Blackbox (GTK4 Terminal) 
 electrum="org.electrum.electrum"                    # Electrum Bitcoin Wallet
 feather="org.featherwallet.Feather"                 # Feather Monero Wallet
 mullvad_browser="net.mullvad.MullvadBrowser"        # Mullvad Browser
