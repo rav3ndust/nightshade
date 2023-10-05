@@ -7,7 +7,7 @@ set -euo pipefail
 # Custom window manager, desktop environments, games, applications, and more.
 # Handles necessary configurations of files as well.
 # Assumes a Debian/Ubuntu operating environment.
-#############################################################################
+###############################################################################
 TITLE="Nightshade Auto-Installation Script"; VERSION=0.1
 # application vars
 core_pkgs=("git" "vim" "gpa" "obs-studio" "filezilla" "fish" "cmus" "htop" "gnome-weather" "gnome-todo" "mpv" "neofetch" "chromium" "firefox" "torbrowser-launcher" "rhythmbox" "telegram-desktop" "cowsay" "wireshark" "ufw" "gufw" "virtualbox-qt" "sublime-text" "sublime-merge" "thunderbird") # TODO: Add other packages to core_pkgs? 
@@ -28,9 +28,10 @@ taisei="org.taisei_project.Taisei"                  # Taisei
 xonotic="org.xonotic.Xonotic"                       # Xonotic
 sc_pinball="com.github.k4zmu2a.spacecadetpinball"   # Space Cadet Pinball
 steam="com.valvesoftware.Steam"                     # Steam 
-#############################################################################
+trayscale="dev.deedles.Trayscale"                   # Trayscale (tailscale GUI)
+###############################################################################
 # functions
-#############################################################################
+###############################################################################
 error_handler () {
   # simple error handling
   local err1="Sorry - something went wrong."
@@ -60,6 +61,13 @@ install_wired () {
   cd $HOME && mkdir .dev && cd .dev
   git clone $repo && cd wiredWM
   bash $wired_script
+}
+install_tailscale () {
+  # installs tailscale onto the system 
+  local ts_script_link="https://tailscale.com/install.sh" 
+  echo "Installing Tailscale..." && sleep 1
+  curl -fsSL $ts_script_link | sh 
+  echo "Tailscale has been installed." && sleep 1
 }
 main () {
   # main function
